@@ -1,0 +1,69 @@
+<html>
+    <head>
+      <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+      <script src="static\func.js"></script>
+      <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bootstrap Simple Data Table</title>
+<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style>
+
+      
+    
+body {
+        background-image: url('TGR-LOGO.webp');
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+</style>
+    </head>
+    <body>
+      
+    
+        <nav class="navbar navbar-inverse navbar-fixed-left">
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="arrow"><a href="{{ url_for('redirect_page', page_name='acceuil') }}"><i class="fa fa-home"></i><br>Acceuil</a></li>
+             <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"><i class="fa fa-table" aria-hidden="true"></i><br>listes des stagiaires<span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li>	<a href="{{ url_for('redirect_page', page_name='index') }}">tous les stagiaires</a>
+                </li>
+                <li><a  href="{{ url_for('redirect_page', page_name='as') }}"><i class="fa fa-map-marker" aria-hidden="true"></i><br>ajouter stagiaire</a></li>
+
+               
+               
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"><i class="fa fa-user" aria-hidden="true"></i><br> stage<span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a  href="{{ url_for('redirect_page', page_name='lds') }}">listes des stages</a></li>
+                <li><a href="{{ url_for('redirect_page', page_name='astage') }}" >ajouter stage </a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"><i class="fa fa-file" aria-hidden="true"></i><br>Attestation<span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="{{ url_for('redirect_page', page_name='ch_stage') }}">Imprimer</a></li>
+              </ul>
+            </li>
+            <li><a href="{{ url_for('redirect_page', page_name='stats') }}"><i class="fa fa-bar-chart" aria-hidden="true"></i><br>statistiques</a></li>
+          </ul>
+       
+        </div>
+            </div>
+          </nav>
+
+    </body>
+
+
+         
+    
+</html>

@@ -1,0 +1,205 @@
+<html>
+    <head>
+      <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+      <script src="templates\func.js"></script>
+      <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bootstrap Simple Data Table</title>
+<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+    </head>
+    
+        <nav class="navbar navbar-inverse navbar-fixed-left">
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="arrow"><a href="{{ url_for('redirect_page', page_name='acceuil') }}"><i class="fa fa-home"></i><br>Acceuil</a></li>
+             <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"><i class="fa fa-table" aria-hidden="true"></i><br>listes des stagiaires<span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li>	<a href="{{ url_for('redirect_page', page_name='index') }}">tous les stagiaires</a>
+                </li>
+                <li><a  href="{{ url_for('redirect_page', page_name='as') }}"><i class="fa fa-map-marker" aria-hidden="true"></i><br>ajouter stagiaire</a></li>
+
+               
+               
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"><i class="fa fa-user" aria-hidden="true"></i><br> stage<span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a  href="{{ url_for('redirect_page', page_name='lds') }}">listes des stages</a></li>
+                <li><a href="{{ url_for('redirect_page', page_name='astage') }}" >ajouter stage </a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"><i class="fa fa-file" aria-hidden="true"></i><br>Attestation<span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="{{ url_for('redirect_page', page_name='ch_stage') }}">Imprimer</a></li>
+              </ul>
+            </li>
+            <li><a href="{{ url_for('redirect_page', page_name='stats') }}"><i class="fa fa-bar-chart" aria-hidden="true"></i><br>statistiques</a></li>
+          </ul>
+       
+        </div>
+            </div>
+          </nav>
+          
+<style>
+  /* Adjust the CSS styles as needed */
+  body {
+      display: flex;
+    justify-content:first baseline;
+      align-items: flex-start;
+      padding-top: 20px;
+      
+      flex:10%;
+      
+  }
+  .donut{
+    padding-top: 20px;
+    margin-left: 100px;
+
+
+
+  }
+
+  
+</style>
+          <body>
+            <canvas id="donutChart" class="donut"></canvas>
+
+    
+       <script>
+        // Fetch the data from the '/chart' route
+        fetch('/chart')
+            .then(response => response.json())
+            .then(data => {
+                // Extract the values from the data
+                const labels = Object.keys(data);
+                const counts = Object.values(data);
+
+                // Create the donut chart
+                // Create the donut chart
+const donutChart = new Chart('donutChart', {
+    type: 'doughnut',
+    data: {
+        labels: labels,
+        datasets: [{
+            data: counts,
+            backgroundColor: ['#FF6384', '#36A2EB'], // Customize the colors as needed
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: false,  // Adjust responsiveness as needed
+        maintainAspectRatio: false,  // Adjust aspect ratio as needed
+        legend: {
+            display: true,  // Set to false if you want to hide the legend
+            position:'center'  // Adjust legend position as needed
+        },
+        // Add other options and customizations as needed
+    }
+});
+
+            });
+    </script>
+    <div>
+<div class="=chart2">
+
+  <canvas id="histogram-chart"></canvas>
+
+    <script>
+        // Fetch the data for stagiaires and stagiaires en cours over time
+       // Fetch the data for stagiaires and stagiaires en cours over time
+       $.get('/evolution-data', function(data) {
+    var ctx = document.getElementById('histogram-chart').getContext('2d');
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: data.labels,
+            datasets: [
+                {
+                    label: 'Stagiares en cours',
+                    data: data.stagiaires,
+                    backgroundColor: 'red'
+                },
+                {
+                    label: 'Stagiaires',
+                    data: data.enCours,
+                    backgroundColor: 'blue'
+                }
+            ]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    precision: 0
+                }
+            }
+        }
+    });
+});
+
+
+    </script>
+
+
+
+</div>
+<div class="chart3">
+  <canvas id="etablissementChart"  width="500" height="300"></canvas>
+
+    <script>
+        // Fetch the data for the number of different etablissements
+        fetch('/etablissement-data')
+            .then(response => response.json())
+            .then(data => {
+                const etablissements = data.etablissements;
+                const counts = data.counts;
+
+                // Create the chart using Chart.js
+                const ctx = document.getElementById('etablissementChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: etablissements,
+                        datasets: [
+                            {
+                                label: ' Etablissements',
+                                data: counts,
+                                backgroundColor: '#36A2EB',
+                                borderWidth: 1
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                stepSize: 1 // Set the step size for the y-axis if needed
+                            }
+                        },
+                        // Add other options and customizations as needed
+                    }
+                });
+            });
+    </script>
+
+
+
+</div>
+        </body>
+
+    
+</html>

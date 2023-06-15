@@ -1,0 +1,207 @@
+<html>
+    <head>
+      <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+      <script src="templates\func.js"></script>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>Bootstrap Simple Data Table</title>
+      <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+      
+      <style>
+
+        
+button{
+  display: flex;
+  align-items: center;
+  font-family: inherit;
+  font-weight: 500;
+  font-size: 16px;
+  padding: 0.7em 1.4em 0.7em 1.1em;
+  color: white;
+  background: #ad5389;
+  background: linear-gradient(0deg, rgba(20,167,62,1) 0%, rgba(102,247,113,1) 100%);
+  border: none;
+  box-shadow: 0 0.7em 1.5em -0.5em #14a73e98;
+  letter-spacing: 0.05em;
+  border-radius: 20em;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button-88:hover {
+  box-shadow: 0 0.5em 1.5em -0.5em #14a73e98;
+}
+
+.button-88:active {
+  box-shadow: 0 0.3em 1em -0.5em #14a73e98;
+}
+        
+    h1{
+      display: contents;
+      justify-content:flex-start;
+    }
+        
+.form-group{
+justify-content: flex-start;
+align-items: center;
+
+
+}
+
+
+
+
+
+.form-container {
+  display: flex;
+  justify-content: center;
+  margin-top: -1050px;
+  padding-top: 10px;
+  height: 100vh;
+}
+
+.styled-form {
+  width: 400px;
+  padding: 20px;
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+}
+
+.input-error {
+  border-color: #ff0000;
+}
+.text-center {
+  text-align: center;
+}
+
+.button {
+  background-color: #4CAF50;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+
+}
+    
+    
+</style>
+    </head>
+    
+        <nav class="navbar navbar-inverse navbar-fixed-left">
+            <div class="container">
+              <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-controls="navbar">
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </button>
+              </div>
+              
+              <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li class="arrow"><a href="{{ url_for('redirect_page', page_name='acceuil') }}"><i class="fa fa-home"></i><br>Acceuil</a></li>
+                 <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"><i class="fa fa-table" aria-hidden="true"></i><br>listes des stagiaires<span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li>	<a href="{{ url_for('redirect_page', page_name='index') }}">tous les stagiaires</a>
+                    </li>
+                    <li><a  href="{{ url_for('redirect_page', page_name='as') }}"><i class="fa fa-map-marker" aria-hidden="true"></i><br>ajouter stagiaire</a></li>
+    
+                   
+                   
+                  </ul>
+                </li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"><i class="fa fa-user" aria-hidden="true"></i><br> stage<span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li><a  href="{{ url_for('redirect_page', page_name='lds') }}">listes des stages</a></li>
+                    <li><a href="{{ url_for('redirect_page', page_name='astage') }}" >ajouter stage </a></li>
+                  </ul>
+                </li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"><i class="fa fa-file" aria-hidden="true"></i><br>Attestation<span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="{{ url_for('redirect_page', page_name='ch_stage') }}">Imprimer</a></li>
+                  </ul>
+                </li>
+                <li><a href="{{ url_for('redirect_page', page_name='stats') }}"><i class="fa fa-bar-chart" aria-hidden="true"></i><br>statistiques</a></li>
+              </ul>
+           
+            </div>
+            </div>
+          </nav>
+
+
+
+          <div class="form-container">
+            <form method="post" action="{{ url_for('add_stagiaire') }}" class="styled-form">
+              <div class="form-group">
+                <label for="nom">Nom:</label>
+                <input type="text" id="nom" name="nom" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label for="prenom">Prénom:</label>
+                <input type="text" id="prenom" name="prenom" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label for="age">Âge:</label>
+                <input type="number" id="age" name="age" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label for="tel">Téléphone:</label>
+                <input type="tel" id="tel" name="tel" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label for="cin">CIN:</label>
+                <input type="text" id="cin" name="cin" class="form-control" pattern="[a-zA-Z0-9]+" required>
+              </div>
+              <div class="form-group">
+                <label for="date_debut">Date début:</label>
+                <input type="date" id="date_debut" class="form-control" name="date_debut" required>
+              </div>
+              <div class="form-group">
+                <label for="date_fin">Date fin:</label>
+                <input type="date" id="date_fin" name="date_fin" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label for="annee">Année:</label>
+                <input type="text" id="annee" name="annee" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label for="etablissement">Établissement:</label>
+                <input type="text" id="etablissement" name="etablissement" class="form-control" required>
+              </div>
+              <div class="form-group text-center">
+                <button class="button" type="submit" role="button">Ajouter</button>
+              </div>
+            </form>
+          </div>
+          
+
+
+</html>
+
+    
